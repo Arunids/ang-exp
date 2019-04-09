@@ -1,0 +1,44 @@
+@import '../../../styles.scss';
+
+.login-bg {
+    width: 750px;
+    height: 0;
+    border-bottom: 100vh solid $primary-color;
+    border-right: 320px solid transparent;
+}
+
+.login-box {
+    width: 400px;
+    margin: 0 auto;
+    -webkit-box-shadow: 0 7px 8px -4px rgba(0, 0, 0, .2), 0 12px 17px 2px rgba(0, 0, 0, .14), 0 5px 22px 4px rgba(0, 0, 0, .12);
+    box-shadow: 0 7px 8px -4px rgba(0, 0, 0, .2), 0 12px 17px 2px rgba(0, 0, 0, .14), 0 5px 22px 4px rgba(0, 0, 0, .12);
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 0;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -58%);
+    background: #fff;
+}
+
+.login-txt {
+    color: $primary-color;
+}
+
+.example-form {
+    padding: 30px;
+}
+
+.login-button {
+    width: 130px;
+}
+
+@media only screen and (max-width: 800px) {
+    .login-bg {
+        width: 100%;
+        height: 0;
+        border-bottom: none;
+        border-right: none;
+    }
+}

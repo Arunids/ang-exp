@@ -1,0 +1,54 @@
+@import '../../../styles.scss';
+
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: $white-color;
+    overflow-x: hidden;
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+}
+
+.admin-ul {
+    border-bottom: 1px solid #eee;
+    list-style-type: none;
+    padding-left: 25px;
+    margin: 0px;
+}
+
+.admin-ul h3 {
+    color: $primary-color;
+}
+
+.menulist-ul {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.menulist-ul li {
+    padding: 10px 25px;
+    cursor: pointer;
+}
+
+.logout-button {
+    border-radius: 20px;
+    padding: 8px 18px;
+}
+
+.user-div {
+    text-align: center;
+    border-top: 1px solid #eeeeee;
+}
+
+.user-div .menulist-ul li {
+    padding: 5px;
+}
+
+.menulist-ul li img{
+    width: 65px;
+    height: 65px;
+}

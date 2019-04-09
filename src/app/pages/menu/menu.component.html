@@ -1,0 +1,25 @@
+<div class="sidenav">
+  <ul class="admin-ul">
+    <li>
+      <h3>Product Admin</h3>
+    </li>
+  </ul>
+
+  <ul class="menulist-ul">
+    <li *ngFor="let menu of menuList" (click)="navigateUrl(menu.url)">{{menu.name}}</li>
+  </ul>
+  <br><br><br><br><br>
+  <div class="user-div">
+    <ul class="menulist-ul">
+      <li>
+        <img
+          src="http://nitaabajaria.com/wp-content/uploads/2015/11/person-outline-icon-png-person-outline-icon-png-person-17.png">
+      </li>
+      <li>arun@gmail.com</li>
+      <li><b>Administraror</b></li>
+      <li><button routerLink="/login" class="button-border logout-button">Log Out</button></li>
+    </ul>
+  </div>
+
+
+</div>

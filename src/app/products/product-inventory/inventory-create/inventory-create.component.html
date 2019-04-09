@@ -1,0 +1,41 @@
+<div class="col-sm-12">
+  <div class="col-sm-12">
+    <mat-card class="col-sm-12" style="margin-top: 25px;">
+      <h4>Add Product Details<span class="button back-span" (click)="hideCreate()">Back</span></h4>
+      <div class="col-sm-3">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Product Code">
+        </mat-form-field>
+      </div>
+      <div class="col-sm-3">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Product Name">
+        </mat-form-field>
+      </div>
+      <div class="col-sm-3">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Avaliable Quantity">
+        </mat-form-field>
+      </div>
+      <div class="col-sm-3">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Price">
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+    <mat-card class="col-sm-12" style="margin-top: 25px;">
+      <h4>Upload Product Image</h4>
+      <div class="col-sm-3">
+        <input type="file">
+      </div>
+    </mat-card>
+
+    <mat-card class="col-sm-12" style="margin-top: 25px;">
+      <div class="right-align">
+        <button class="button-border" (click)="hideCreate()">Back</button>
+        <button class="button">Add</button>
+      </div>
+    </mat-card>
+  </div>
+</div>

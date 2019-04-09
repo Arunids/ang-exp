@@ -1,0 +1,20 @@
+@import '../../../../styles.scss';
+
+.mat-form-field {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.back-span {
+    background: $primary-color;
+    position: absolute;
+    right: 0px;
+    border-radius: 0px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding: 10px 25px;
+    cursor: pointer;
+    color: $white-color;
+    font-weight: normal;
+    margin: 0px;
+}
