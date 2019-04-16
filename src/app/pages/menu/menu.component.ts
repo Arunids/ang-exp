@@ -7,11 +7,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-
   menuList: any = [{
     "id": 0,
     "name": "Home",
-    "icon": ""
+    "icon": "",
+    "url": ""
   }, {
     "id": 0,
     "name": "Products",
@@ -20,20 +20,31 @@ export class MenuComponent implements OnInit {
   }, {
     "id": 0,
     "name": "Orders",
-    "icon": ""
+    "icon": "",
+    "url": "/orders"
   }, {
     "id": 0,
     "name": "Settings",
-    "icon": ""
+    "icon": "",
+    "url": ""
   }]
   constructor(private router: Router) { }
 
   ngOnInit() {
+    this.makeActiveMenu();
   }
 
   navigateUrl(url: any) {
-    console.log(url)
     this.router.navigate([url])
+  }
+
+  makeActiveMenu() {
+    let currentUrl: string = window.location.hash.substring(1);
+    for (let x of this.menuList) {
+      if (x.url == currentUrl) {
+        x.isActive = true;
+      }
+    }
   }
 
 }

@@ -4,9 +4,8 @@
       <h3>Product Admin</h3>
     </li>
   </ul>
-
   <ul class="menulist-ul">
-    <li *ngFor="let menu of menuList" (click)="navigateUrl(menu.url)">{{menu.name}}</li>
+    <li *ngFor="let menu of menuList" (click)="navigateUrl(menu.url)" [class.active]="menu.isActive">{{menu.name}}</li>
   </ul>
   <br><br><br><br><br>
   <div class="user-div">

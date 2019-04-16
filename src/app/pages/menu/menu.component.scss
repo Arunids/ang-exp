@@ -32,6 +32,13 @@
 .menulist-ul li {
     padding: 10px 25px;
     cursor: pointer;
+    border-left: 5px solid #fff;
+}
+
+.menulist-ul li.active {
+    border-left: 5px solid $primary-color;
+    color: $primary-color;
+    font-weight: bold;
 }
 
 .logout-button {
@@ -48,7 +55,7 @@
     padding: 5px;
 }
 
-.menulist-ul li img{
+.menulist-ul li img {
     width: 65px;
     height: 65px;
 }

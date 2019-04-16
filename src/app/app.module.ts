@@ -5,8 +5,9 @@ import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { MatInputModule, MatCardModule, MatTableModule, MatPaginatorModule, MatProgressBarModule } from '@angular/material';
+import { WebService } from './shared/services/web.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,9 +24,10 @@ import { MatInputModule, MatCardModule, MatTableModule, MatPaginatorModule, MatP
     MatPaginatorModule,
     MatProgressBarModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [WebService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
