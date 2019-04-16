@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MatInputModule, MatCardModule, MatTableModule, MatPaginatorModule } from '@angular/material';
+import { MatInputModule, MatCardModule, MatTableModule, MatPaginatorModule, MatProgressBarModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -21,6 +21,7 @@ import { MatInputModule, MatCardModule, MatTableModule, MatPaginatorModule } fro
     MatCardModule,
     MatTableModule,
     MatPaginatorModule,
+    MatProgressBarModule,
     FormsModule,
     ReactiveFormsModule
   ],

@@ -26,8 +26,18 @@
 
     <mat-card class="col-sm-12" style="margin-top: 25px;">
       <h4>Upload Product Image</h4>
-      <div class="col-sm-3">
+      <!-- <div class="col-sm-3">
         <input type="file">
+      </div> -->
+      <div class="file-upload">
+        <label id="#bb">
+          <p><i class="fa fa-cloud-upload" style="font-size: 20px;"></i></p>
+          <b> Uploaded files here</b>
+          <input type="file" (change)="changeListener($event)" style="margin-top: 20px;" multiple>
+        </label>
+        <div style="height:5px;">
+          <mat-progress-bar mode="indeterminate" *ngIf="isUploading"></mat-progress-bar>
+        </div>
       </div>
     </mat-card>
 
