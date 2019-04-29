@@ -7,3 +7,21 @@
 .product-div h2 {
     color: $primary-color;
 }
+
+.inventory-block .col-sm-3 {
+    width: 12.5%;
+}
+
+.inventory-block .col-sm-3 .mat-card {
+    width: 100px;
+    height: 100px;
+}
+
+.inventory-block .col-sm-3 h5 {
+    margin: 8px;
+}
+
+.inventory-block .col-sm-3 .fa {
+    font-size: 18px;
+    color: #5690ff;
+}
