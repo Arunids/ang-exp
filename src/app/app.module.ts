@@ -8,11 +8,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatCardModule, MatTableModule, MatPaginatorModule, MatProgressBarModule } from '@angular/material';
 import { WebService } from './shared/services/web.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ProductCategoryComponent } from './product-category/product-category.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
+    ProductCategoryComponent
   ],
   imports: [
     BrowserModule,

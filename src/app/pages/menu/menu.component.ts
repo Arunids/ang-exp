@@ -12,7 +12,14 @@ export class MenuComponent implements OnInit {
     "name": "Home",
     "icon": "",
     "url": ""
-  }, {
+  },
+  {
+    "id": 0,
+    "name": "Product Category",
+    "icon": "",
+    "url": "/product-category"
+  },
+  {
     "id": 0,
     "name": "Products",
     "icon": "",
