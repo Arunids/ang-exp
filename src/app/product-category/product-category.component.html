@@ -1,0 +1,37 @@
+<app-menu></app-menu>
+
+<div class="main">
+  <div class="col-sm-12">
+    <h3 style="margin-left: 15px;">Product category</h3>
+  </div>
+
+
+  <!-- <app-pagination-list></app-pagination-list> -->
+  <app-data-table *ngIf="visibility.listVisible" (eventForCreate)="showCreate($event)" [dataList]="dataList"></app-data-table>
+
+  <div *ngIf="visibility.createVisible">
+    <div class="col-sm-12">
+      <mat-card class="col-sm-12" style="margin-top: 25px;">
+       
+        <div class="col-sm-3">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Code" ng-model="code">
+          </mat-form-field>
+        </div>
+        <div class="col-sm-3">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Name" ng-model="name">
+          </mat-form-field>
+        </div>
+      </mat-card>
+      <mat-card class="col-sm-12" style="margin-top: 25px;">
+        <div class="right-align">
+          <button class="button-border" (click)="hideCreate()">Back</button>
+          <button class="button" (click)="save()">Save</button>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+
+
+</div>

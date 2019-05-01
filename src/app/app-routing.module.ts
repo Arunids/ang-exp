@@ -10,12 +10,14 @@ import { InventoryListComponent } from './products/product-inventory/inventory-l
 import { InventoryCreateComponent } from './products/product-inventory/inventory-create/inventory-create.component';
 import { OrdersComponent } from './orders/orders/orders.component';
 import { FormComponent } from './pages/form/form.component';
+import { ProductCategoryComponent } from './product-category/product-category.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'product-inventory', component: ProductInventoryComponent },
+  { path: 'product-category', component: ProductCategoryComponent },
   { path: 'orders', component: OrdersComponent },
   { path: 'form', component: FormComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'login' },
