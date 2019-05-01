@@ -10,11 +10,14 @@ import { WebService } from 'src/app/shared/services/web.service';
 export class InventoryCreateComponent implements OnInit {
   @Output() eventForList = new EventEmitter();
   createObj: any = {};
+  isUploading:boolean =false;
   constructor(private _webservice: WebService) { }
 
   ngOnInit() {
   }
+  changeListener(el:any){
 
+  }
   hideCreate() {
     this.eventForList.emit(true);
   }

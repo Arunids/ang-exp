@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'product-inventory', component: ProductInventoryComponent },
   { path: 'orders', component: OrdersComponent },
   { path: 'form', component: FormComponent },
-  { path: '**', pathMatch: 'full', redirectTo: 'journal-entry' },
+  { path: '**', pathMatch: 'full', redirectTo: 'login' },
 ];
 
 @NgModule({
