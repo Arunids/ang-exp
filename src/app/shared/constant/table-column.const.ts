@@ -2,5 +2,7 @@ export const ColumnHeader = {
     position: "Position",
     name: "Name",
     weight: "Weight",
-    symbol: "Symbol"
+    symbol: "Symbol",
+    code: "Code",
+    action: 'Action'
 }

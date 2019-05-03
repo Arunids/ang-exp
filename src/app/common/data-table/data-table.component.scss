@@ -1,5 +1,4 @@
 @import '../../../styles.scss';
-
 .custom-table {
     margin-top: 25px;
     background-color: $white-color;
@@ -26,4 +25,12 @@
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     padding: 12px 25px;
+}
+
+button.edit {
+    border: none;
+    background: #fff;
+    margin: 2px;
+    color: #3966bb;
+    cursor: pointer;
 }

@@ -10,21 +10,31 @@ import { ColumnHeader } from "../../shared/constant/table-column.const";
 
 export class DataTableComponent implements OnInit {
   @Output() eventForCreate = new EventEmitter();
+  @Output() editPage?:any = new EventEmitter();
+  @Output() deletePage?:any = new EventEmitter();
   @Input() dataList: any;
+  @Input() editVisibliliy?:boolean = true;
   displayedColumns: string[] = [];
-  _columnHeader: any = ColumnHeader
+  columnHeader: any = ColumnHeader
   dataSource: any;
-  displayValue: any = {};
-
+  // displayValue: any = {};
+extraColumn:string[]=[];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor() { }
   ngOnInit() {
-    this.displayedColumns = Object.keys(this.dataList[0]);
+    let actualCol:any = Object.keys(this.dataList[0]);
+    actualCol = actualCol.filter((v:any) => v != 'id');
+    this.displayedColumns = actualCol;
+    this.extraColumn = [...actualCol];
+    if(this.editVisibliliy)
+    this.extraColumn.unshift('actions');
+    
+    // this.displayedColumns = ['action','code','name'];
     this.dataSource = new MatTableDataSource<any>(this.dataList)
     this.dataSource.paginator = this.paginator;
-    for (let x in this.displayedColumns) {
-      this.displayValue[this.displayedColumns[x]] = this._columnHeader[this.displayedColumns[x]]
-    }
+    // for (let x in this.displayedColumns) {
+    //   this.displayValue[this.displayedColumns[x]] = this._columnHeader[this.displayedColumns[x]]
+    // }
   }
 
   applyFilter(filterValue: string) {
@@ -34,8 +44,15 @@ export class DataTableComponent implements OnInit {
     }
   }
 
+
   showCreate() {
     this.eventForCreate.emit(true)
+  }
+  editEmit(elem:any) {
+    this.editPage.emit(elem);
+  }
+  deleteEmit(elem:any) {
+    this.deletePage.emit(elem)
   }
 }
 

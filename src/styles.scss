@@ -1,9 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
-$primary-color : #5690ff;
-$white-color : #ffffff;
-
+$primary-color: #5690ff;
+$white-color: #ffffff;
 html,
 body {
     height: 100%;
@@ -58,4 +57,50 @@ body {
 
 .center-align {
     text-align: center;
+}
+
+.action-header {
+    width: 100px;
+}
+
+#toast-popup {
+    position: fixed;
+    top: -150px;
+    right: 15px;
+    padding: 10px;
+    background: #fff;
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+    width: 315px;
+    border-left: 5px solid #09e809;
+    transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+#toast-popup>i.success {
+    color: #09e809;
+    font-size: 16px;
+    margin-right: 10px;
+    vertical-align: -webkit-baseline-middle;
+}
+
+#toast-popup>i.close {
+    position: absolute;
+    right: 12px;
+    font-size: 16px;
+    color: #8e8f94;
+}
+
+#toast-popup h4 {
+    padding: 0;
+    margin: 0;
+    display: inline;
+    color: #09e809;
+}
+
+#toast-popup p {
+    padding: 0;
+    margin: 0;
+    font-size: 13px;
+    color: #8e8f94;
+    margin-left: 26px;
+    margin-top: -5px;
 }
