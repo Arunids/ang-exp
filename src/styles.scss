@@ -3,6 +3,10 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 $primary-color: #5690ff;
 $white-color: #ffffff;
+$success-color:#09e809;
+$error-color:#d82121;
+$warning-color:#ce7714;
+$info-color:#5690ff;
 html,
 body {
     height: 100%;
@@ -71,15 +75,45 @@ body {
     background: #fff;
     box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
     width: 315px;
-    border-left: 5px solid #09e809;
     transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
-#toast-popup>i.success {
-    color: #09e809;
+#toast-popup.success {
+    border-left: 5px solid $success-color;
+}
+
+#toast-popup.error {
+    border-left: 5px solid $error-color;
+}
+
+#toast-popup.warning {
+    border-left: 5px solid $warning-color;
+}
+
+#toast-popup.info {
+    border-left: 5px solid $info-color;
+}
+
+#toast-popup>i {
     font-size: 16px;
     margin-right: 10px;
     vertical-align: -webkit-baseline-middle;
+}
+
+#toast-popup>i.success {
+    color: $success-color;
+}
+
+#toast-popup>i.error {
+    color: $error-color;
+}
+
+#toast-popup>i.warning {
+    color: $warning-color;
+}
+
+#toast-popup>i.info {
+    color: $info-color;
 }
 
 #toast-popup>i.close {
@@ -93,7 +127,22 @@ body {
     padding: 0;
     margin: 0;
     display: inline;
-    color: #09e809;
+}
+
+#toast-popup.success h4 {
+    color: $success-color;
+}
+
+#toast-popup.error h4 {
+    color: $error-color;
+}
+
+#toast-popup.warning h4 {
+    color: $warning-color;
+}
+
+#toast-popup.info h4 {
+    color: $info-color;
 }
 
 #toast-popup p {
@@ -101,6 +150,6 @@ body {
     margin: 0;
     font-size: 13px;
     color: #8e8f94;
-    margin-left: 26px;
+    margin-left: 30px;
     margin-top: -5px;
 }

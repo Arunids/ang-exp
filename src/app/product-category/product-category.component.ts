@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { WebService } from '../shared/services/web.service'
-import { ToastService } from '../shared/services/toast.service'
+import { WebService } from '../shared/services/web.service';
+import { ToastService } from '../shared/services/toast.service';
+import { SpinnerService } from '../shared/services/spinner.service';
 
 @Component({
   selector: 'app-product-category',
@@ -31,7 +32,7 @@ export class ProductCategoryComponent implements OnInit {
     // {name:"test9",code:"code1"}
 
   ]
-  constructor(private webService: WebService, private toast: ToastService) { }
+  constructor(private webService: WebService, private toast: ToastService, private spinner:SpinnerService) { }
 
   ngOnInit() {
     this.listProductCategory();
@@ -59,9 +60,16 @@ export class ProductCategoryComponent implements OnInit {
 
   showCreate(flag: any) {
 
-   this.toast.success("test");
+  //  this.toast.success("Product Category Created Successfully.");
+  //  this.toast.error("Internal Server Error");
+  //  this.toast.warning("Product Category Created Successfully.");
+  //  this.toast.info("Product Category Created Successfully.");
     // this.visibility.listVisible = false;
     // this.visibility.createVisible = true;
+    // this.spinner.loaderStart();
+    // setTimeout(()=>{
+    //   this.spinner.loaderStop();
+    // },4000)
     this.category = {
       id: 0,
       code: "",
@@ -81,10 +89,13 @@ export class ProductCategoryComponent implements OnInit {
     this.showVisibility(false, true);
   }
   save() {
+    this.spinner.loaderStart();
     if (this.category.id == 0) {
       this.webService.commonMethod('/api/products_category/create', this.category, 'POST').subscribe(
         (data: any) => {
           if (data.Status) {
+            this.toast.success("Product Category Created Successfully..")
+            this.spinner.loaderStop();
             this.listProductCategory();
           }
         });
@@ -93,6 +104,9 @@ export class ProductCategoryComponent implements OnInit {
       this.webService.commonMethod('/api/products_category/' + this.category.id, this.category, 'PUT').subscribe(
         (data: any) => {
           if (data.Status) {
+            this.toast.success("Product Category Updated Successfully..")
+
+            this.spinner.loaderStop();
             this.listProductCategory();
           }
         });
@@ -105,9 +119,12 @@ export class ProductCategoryComponent implements OnInit {
     this.showVisibility(true, false);
   }
   deleteRow(rowData:any){
+    this.spinner.loaderStart();
     this.webService.commonMethod('/api/products_category/' + rowData.id, '', 'DELETE').subscribe(
       (data: any) => {
         if (data.Status) {
+          this.toast.success("Product Category Deleted..")
+          this.spinner.loaderStop();
           this.showVisibility(false,false);
           this.listProductCategory();
         }
