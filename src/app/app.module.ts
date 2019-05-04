@@ -9,6 +9,8 @@ import { MatInputModule, MatCardModule, MatTableModule, MatPaginatorModule, MatP
 import { WebService } from './shared/services/web.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductCategoryComponent } from './product-category/product-category.component';
+import { AuthService } from './shared/services/auth/auth.service';
+import { AuthGuard } from './shared/services/auth/auth.guard';
 
 
 @NgModule({
@@ -31,7 +33,6 @@ import { ProductCategoryComponent } from './product-category/product-category.co
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [WebService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

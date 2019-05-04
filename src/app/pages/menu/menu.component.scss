@@ -1,5 +1,4 @@
 @import '../../../styles.scss';
-
 .sidenav {
     height: 100%;
     width: 200px;
@@ -36,9 +35,19 @@
 }
 
 .menulist-ul li.active {
-    border-left: 5px solid $primary-color;
+    // border-left: 5px solid $primary-color;
     color: $primary-color;
     font-weight: bold;
+}
+
+.menulist-ul li.active div {
+    position: absolute;
+    height: 20px;
+    width: 4px;
+    background: $primary-color;
+    display: inline-block;
+    margin-left: -8px;
+    margin-top: 0px;
 }
 
 .logout-button {

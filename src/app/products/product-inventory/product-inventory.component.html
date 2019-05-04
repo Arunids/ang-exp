@@ -1,11 +1,9 @@
-<app-menu></app-menu>
-
 <div class="main">
-  <div class="col-sm-12">
-    <h3 style="margin-left: 15px;">Product Inventory</h3>
-  </div>
+    <!-- <div class="col-sm-12">
+        <h3 style="margin-left: 15px;">Product Inventory</h3>
+    </div> -->
 
-  <div class="product-div inventory-block">
+    <!-- <div class="product-div inventory-block">
     <div class="col-sm-12">
       <div class="col-sm-3">
         <mat-card>
@@ -56,14 +54,14 @@
         </mat-card>
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <div *ngIf="visibility.listVisible">
-    <app-inventory-list (eventForCreate)="showCreate($event)"></app-inventory-list>
-  </div>
+    <div *ngIf="visibility.listVisible">
+        <app-inventory-list (eventForCreate)="showCreate($event)"></app-inventory-list>
+    </div>
 
-  <div *ngIf="visibility.createVisible">
-    <app-inventory-create (eventForList)="showList($event)"></app-inventory-create>
-  </div>
+    <div *ngIf="visibility.createVisible">
+        <app-inventory-create (eventForList)="showList($event)"></app-inventory-create>
+    </div>
 
 </div>

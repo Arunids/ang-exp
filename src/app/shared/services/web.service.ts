@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class WebService {
   constructor(private http: HttpClient, ) { }
   baseUrl: string = 'http://localhost:3000';

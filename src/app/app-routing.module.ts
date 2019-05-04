@@ -11,13 +11,14 @@ import { InventoryCreateComponent } from './products/product-inventory/inventory
 import { OrdersComponent } from './orders/orders/orders.component';
 import { FormComponent } from './pages/form/form.component';
 import { ProductCategoryComponent } from './product-category/product-category.component';
+import { AuthGuard } from './shared/services/auth/auth.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'product-inventory', component: ProductInventoryComponent },
-  { path: 'product-category', component: ProductCategoryComponent },
+  { path: 'product-inventory', component: ProductInventoryComponent,canActivate: [AuthGuard] },
+  { path: 'product-category', component: ProductCategoryComponent,canActivate: [AuthGuard] },
   { path: 'orders', component: OrdersComponent },
   { path: 'form', component: FormComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'login' },

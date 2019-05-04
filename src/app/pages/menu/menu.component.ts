@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {AuthService} from '../../shared/services/auth/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-menu',
@@ -34,10 +36,18 @@ export class MenuComponent implements OnInit {
     "name": "Settings",
     "icon": "",
     "url": ""
-  }]
-  constructor(private router: Router) { }
+  }];
+  isLoggedIn$: Observable<boolean>;
+  constructor(private router: Router,private authService:AuthService) { }
+
+  onLogout() {
+    this.authService.logout();
+  }
+
 
   ngOnInit() {
+    this.isLoggedIn$ = this.authService.isLoggedIn;
+
     this.makeActiveMenu();
   }
 
