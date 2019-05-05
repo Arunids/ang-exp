@@ -47,15 +47,30 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.isLoggedIn$ = this.authService.isLoggedIn;
+    this.isLoggedIn$.subscribe(
+      data =>{
+        console.log(data);
+      }
+    );
+    setTimeout(()=>{
 
-    this.makeActiveMenu();
+      this.makeActiveMenu();
+    },100)
   }
 
   navigateUrl(url: any) {
-    this.router.navigate([url])
+    this.router.navigate([url]);
+    setTimeout(()=>{
+
+      this.makeActiveMenu();
+    },100)
   }
 
   makeActiveMenu() {
+    // console.log(window.location.hash.substring(1));
+    for (let x of this.menuList) {
+      x.isActive = false;
+    }
     let currentUrl: string = window.location.hash.substring(1);
     for (let x of this.menuList) {
       if (x.url == currentUrl) {

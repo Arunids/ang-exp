@@ -15,7 +15,9 @@ export class AuthService {
       
     private router: Router
   ) {
-    this.loggedIn.next(true);
+    // this.loggedIn.next(true);
+    let flag:boolean = localStorage.getItem('app_token') ? true : false;
+    this.loggedIn.next(flag);
   }
 
   login(user: User) {
@@ -26,6 +28,7 @@ export class AuthService {
   }
 
   logout() {
+    localStorage.removeItem('app_token');
     this.loggedIn.next(false);
     this.router.navigate(['/login']);
   }

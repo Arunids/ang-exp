@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 }
 */
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WebService } from 'src/app/shared/services/web.service';
 
@@ -42,10 +42,16 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private webservice: WebService
+    private webservice: WebService,
+    private router:Router
   ) {}
 
   ngOnInit() {
+    let flag:boolean = localStorage.getItem('app_token') ? true : false;
+    if(flag){
+      this.router.navigate(['/dashboard']);
+      return;
+    }
     this.form = this.fb.group({
       userName: ['', Validators.required],
       password: ['', Validators.required]
@@ -63,6 +69,7 @@ export class LoginComponent implements OnInit {
     if (this.form.valid) {
       this.authService.login(this.form.value);
     }
+    localStorage.setItem('app_token',"1");
     this.formSubmitAttempt = true;
   }
 }
