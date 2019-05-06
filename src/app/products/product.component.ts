@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { WebService } from '../shared/services/web.service';
 import { ToastService } from '../shared/services/toast.service';
 import { SpinnerService } from '../shared/services/spinner.service';
-
 @Component({
-  selector: 'app-product-category',
-  templateUrl: './product-category.component.html',
-  styleUrls: ['./product-category.component.scss']
+  selector: 'app-product',
+  templateUrl: './product.component.html',
+  styleUrls: ['./product.component.scss']
 })
-export class ProductCategoryComponent implements OnInit {
+export class ProductComponent implements OnInit {
   visibility: any = {
     "listVisible": false,
     "createVisible": false
@@ -22,13 +21,31 @@ export class ProductCategoryComponent implements OnInit {
   constructor(private webService: WebService, private toast: ToastService, private spinner:SpinnerService) { }
 
   ngOnInit() {
-   this.listProductCategory();
+    this.listProductCategory();
   }
   listProductCategory() {
-    this.webService.listProductCategory((data:any)=>{
-      this.dataList = data.Response;
-      this.showVisibility(false, true);
-    });
+    this.spinner.loaderStart();
+    this.webService.commonMethod('/api/product', '', 'GET').subscribe(
+      (data: any) => {
+        this.spinner.loaderStop();
+        if (data.Status == 'Success' && data.Response.length) {
+          data.Response = data.Response.map((v: any) => {
+            return {
+              id: v.id,
+              image: v.image,
+              name: v.name,
+              price: v.price,
+              product_category:v.product_category
+            }
+          });
+        }
+        this.dataList = data.Response;
+        // this.visibility.listVisible = true;
+        // this.visibility.createVisible = false;
+        this.showVisibility(false, true);
+      }
+
+    )
   }
 
   showCreate(flag: any) {

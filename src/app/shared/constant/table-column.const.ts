@@ -4,5 +4,10 @@ export const ColumnHeader = {
     weight: "Weight",
     symbol: "Symbol",
     code: "Code",
-    action: 'Action'
+    action: "Action",
+    price:"Price",
+    image: "Image",
+    is_stock:"Is Stock",
+    description:"Description",
+    product_category:"Category"
 }

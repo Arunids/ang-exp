@@ -5,19 +5,20 @@ import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule, MatCardModule, MatTableModule, MatPaginatorModule, MatProgressBarModule,MatSnackBarModule } from '@angular/material';
-import { WebService } from './shared/services/web.service';
+import { MatInputModule, MatCardModule, MatTableModule, MatPaginatorModule, MatProgressBarModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductCategoryComponent } from './product-category/product-category.component';
-import { AuthService } from './shared/services/auth/auth.service';
-import { AuthGuard } from './shared/services/auth/auth.guard';
-
+import { ProductComponent } from './products/product.component';
+import { ImageLoaderComponent } from './common/image-loader/image-loader.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
-    ProductCategoryComponent
+    ProductComponent,
+    ProductCategoryComponent,
+    ImageLoaderComponent
+
   ],
   imports: [
     BrowserModule,
@@ -28,7 +29,6 @@ import { AuthGuard } from './shared/services/auth/auth.guard';
     MatTableModule,
     MatPaginatorModule,
     MatProgressBarModule,
-    MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InventoryCreateComponent } from './inventory-create.component';
+import { ImageLoaderComponent } from './image-loader.component';
 
-describe('InventoryCreateComponent', () => {
-  let component: InventoryCreateComponent;
-  let fixture: ComponentFixture<InventoryCreateComponent>;
+describe('ImageLoaderComponent', () => {
+  let component: ImageLoaderComponent;
+  let fixture: ComponentFixture<ImageLoaderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InventoryCreateComponent ]
+      declarations: [ ImageLoaderComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InventoryCreateComponent);
+    fixture = TestBed.createComponent(ImageLoaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

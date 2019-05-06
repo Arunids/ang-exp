@@ -55,13 +55,11 @@
       </div>
     </div>
   </div> -->
+    <app-data-table *ngIf="visibility.listVisible" (eventForCreate)="showCreate($event)" [dataList]="dataList" (editPage)="viewRow($event)" (deletePage)="deleteRow($event)"></app-data-table>
 
-    <div *ngIf="visibility.listVisible">
-        <app-inventory-list (eventForCreate)="showCreate($event)"></app-inventory-list>
-    </div>
 
-    <div *ngIf="visibility.createVisible">
+    <!-- <div *ngIf="visibility.createVisible">
         <app-inventory-create (eventForList)="showList($event)"></app-inventory-create>
-    </div>
+    </div> -->
 
 </div>

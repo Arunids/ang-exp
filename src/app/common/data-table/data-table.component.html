@@ -58,7 +58,16 @@
 
                     <ng-container [matColumnDef]="m" *ngFor="let m of displayedColumns">
                         <th mat-header-cell *matHeaderCellDef> {{columnHeader[m]}} </th>
-                        <td mat-cell *matCellDef="let element"> {{element[m]}} </td>
+                        <td mat-cell *matCellDef="let element">
+                            <span *ngIf="m!='image'">
+                            {{element[m]}} 
+                            </span>
+                            <span *ngIf="m=='image'">
+                                <!-- <img [src]="element[m]" /> -->
+                                <app-image-loader [image]="element[m]" height="32" width="32">
+                                </app-image-loader>
+                            </span>
+                        </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="extraColumn"></tr>
