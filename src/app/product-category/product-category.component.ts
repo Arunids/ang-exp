@@ -77,8 +77,9 @@ export class ProductCategoryComponent implements OnInit {
     this.showVisibility(true, false);
   }
   deleteRow(rowData:any){
+    
     this.spinner.loaderStart();
-    this.webService.commonMethod('/api/products_category/' + rowData.id, '', 'DELETE').subscribe(
+    this.webService.commonMethod('/api/products_category/', rowData, 'DELETE').subscribe(
       (data: any) => {
         if (data.Status) {
           this.toast.success("Product Category Deleted..")

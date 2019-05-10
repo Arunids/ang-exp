@@ -33,8 +33,13 @@ export class WebService {
       return this.http.get(endPoint, { headers });
     else if (method == 'PUT')
       return this.http.put(endPoint, data, { headers });
-    else if (method == 'DELETE')
-      return this.http.delete(endPoint, { headers });
+    else if (method == 'DELETE') {
+      const options = {
+        headers: headers,
+        body: data
+      };
+      return this.http.delete(endPoint, options);
+    }
 
   }
   listProductCategory(callback) {
@@ -55,7 +60,7 @@ export class WebService {
         }
 
       },
-      (error:any) =>{
+      (error: any) => {
         callback(null);
       }
 

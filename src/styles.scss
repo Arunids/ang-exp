@@ -1,12 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import "./config.scss";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-$primary-color: #5690ff;
-$white-color: #ffffff;
-$success-color:#09e809;
-$error-color:#d82121;
-$warning-color:#ce7714;
-$info-color:#5690ff;
 html,
 body {
     height: 100%;
@@ -157,4 +152,9 @@ body {
 .mat-table img {
     height: 32px;
     width: 32px;
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: $primary-color;
 }

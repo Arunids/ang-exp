@@ -1,4 +1,4 @@
-@import '../../../styles.scss';
+@import '../../../config.scss';
 .custom-table {
     margin-top: 25px;
     background-color: $white-color;
@@ -33,4 +33,39 @@ button.edit {
     margin: 2px;
     color: #3966bb;
     cursor: pointer;
+}
+
+.generic-button {
+    float: left;
+}
+
+.generic-button button {
+    border: none;
+    margin: 4px;
+    cursor: pointer;
+    border-radius: 50%;
+    height: 38px;
+    width: 38px;
+    outline: none;
+    background: #fff;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
+}
+
+.generic-button button:hover {
+    background: #eeeff2;
+    border: 3px solid #ffffff;
+}
+
+.generic-button button i {
+    color: $primary-color;
+    font-size: 18px;
+}
+
+.generic-button button[disabled] {
+    cursor: auto;
+    outline: 0;
+}
+
+.generic-button button[disabled] i {
+    color: #e2e2e2;
 }
