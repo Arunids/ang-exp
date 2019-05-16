@@ -61,5 +61,65 @@
     <!-- <div *ngIf="visibility.createVisible">
         <app-inventory-create (eventForList)="showList($event)"></app-inventory-create>
     </div> -->
+    <div *ngIf="visibility.createVisible">
+        <div class="col-sm-12">
+            <mat-card class="col-sm-12" style="margin-top: 25px;">
 
+                <div class="col-sm-3">
+                    <mat-form-field class="example-full-width">
+                        <input id="matcode" autofocus matInput placeholder="Code" [(ngModel)]="product.code">
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-3">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Name" [(ngModel)]="product.name">
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-3">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Price (₹)" [(ngModel)]="product.price">
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-3">
+
+                    <mat-form-field>
+                        <mat-label>Category</mat-label>
+                        <mat-select [(ngModel)]="product.category_id">
+                            <mat-option *ngFor="let cat of productCategoryList" [value]="cat.id">
+                                {{cat.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-8">
+                    <mat-form-field class="example-full-width">
+                        <textarea rows="12" matInput placeholder="Description" [(ngModel)]="product.description"></textarea>
+
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <h4>Upload Product Image</h4>
+                    <div class="file-upload" *ngIf="upload=='none' || upload == 'started'">
+                        <label id="#bb">
+                          <p><i class="fa fa-upload" style="font-size: 20px;"></i></p>
+                          <b> Uploaded files here</b>
+                          <input type="file" (change)="uploadImage($event)" style="margin-top: 20px;">
+                        </label>
+                        <img *ngIf="upload == 'started'" src="../../assets/image/spinner.gif">
+                    </div>
+                    <div class="image-preview" *ngIf="upload=='completed'">
+                        <button (click)="removeImage()"><i class="fa fa-times"></i></button>
+                        <img [src]="product.image">
+                    </div>
+                </div>
+            </mat-card>
+            <mat-card class="col-sm-12" style="margin-top: 25px;">
+                <button *ngIf="product.id==0" class="button savecontinue" (click)="save(true)">Save & Continue</button>
+                <div class="right-align">
+                    <button class="button-border" (click)="hideCreate()">Back</button>
+                    <button class="button" (click)="save(false)">Save</button>
+                </div>
+            </mat-card>
+        </div>
+    </div>
 </div>

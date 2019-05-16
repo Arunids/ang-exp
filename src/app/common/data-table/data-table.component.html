@@ -12,11 +12,12 @@
                         <button title="Delete Selected Row" [disabled]="selection.selected.length == 0" (click)="deleteEmit()"><i class="fa fa-trash"></i></button>
                         <button title="Edit Selected Row" [disabled]="selection.selected.length != 1" (click)="editEmit()"><i class="fa fa-edit"></i></button>
 
+                        <!-- <input type="file" (change)="readFile($event.target)" name="myfile">
                         <button style="margin-left: 50px;"><i class="fa fa-upload"></i></button>
                         <button><i class="fa fa-download"></i></button>
                         <button style="margin-left: 50px;"><i class="fa fa-print"></i></button>
                         <button><i class="fa fa-file-pdf"></i></button>
-                        <button><i class="fa fa-file-excel"></i></button>
+                        <button><i class="fa fa-file-excel"></i></button> -->
                     </div>
                     <button class="button curve-button" (click)="showCreate()">Add New</button>
                 </div>

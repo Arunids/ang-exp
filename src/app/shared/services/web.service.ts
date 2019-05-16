@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { SpinnerService } from '../../shared/services/spinner.service';
+import { callbackify } from 'util';
+
 
 @Injectable({ providedIn: 'root' })
 export class WebService {
-  constructor(private http: HttpClient, ) { }
+  constructor(private http: HttpClient, private loader: SpinnerService) { }
   baseUrl: string = 'http://localhost:3000';
   // baseUrl: string = 'https://expang.herokuapp.com';
 
@@ -42,28 +45,128 @@ export class WebService {
     }
 
   }
-  listProductCategory(callback) {
-    this.commonMethod('/api/products_category', '', 'GET').subscribe(
+  listItem(url: string, callback: Function) {
+    this.loader.loaderStart();
+    this.commonMethod(url, '', 'GET').subscribe(
       (data: any) => {
         if (data.Status == 'Success' && data.Response.length) {
-          data.Response = data.Response.map((v: any) => {
-            return {
-              id: v.id,
-              code: v.code,
-              name: v.name
-            }
-          });
+          // data.Response = data.Response.map((v: any) => {
+          //   return {
+          //     id: v.id,
+          //     code: v.code,
+          //     name: v.name
+          //   }
+          // });
           callback(data);
         }
         else {
           callback(null);
         }
-
       },
       (error: any) => {
+        this.loader.loaderStop();
         callback(null);
+      },
+      () => {
+        this.loader.loaderStop();
+
       }
 
     )
+  }
+  createItem(url: string, body: any, callback: Function) {
+    this.loader.loaderStart();
+    // if (this.category.id == 0) {
+    this.commonMethod(url, body, 'POST').subscribe(
+      (data: any) => {
+        if (data.Status) {
+          // this.toast.success("Product Category Created Successfully..")
+          callback(data);
+          // if(flag){
+          //   this.showCreate(false);
+          // }
+          // else
+          // this.listProductCategory();
+        }
+        else {
+          callback(null);
+        }
+      },
+      (error: any) => {
+        this.loader.loaderStop();
+        callback(null);
+      },
+      () => {
+        this.loader.loaderStop();
+      }
+    );
+    // }
+  }
+  updateItem(url: string, body: any, callback: Function) {
+    this.loader.loaderStart();
+    this.commonMethod(url, body, 'PUT').subscribe(
+      (data: any) => {
+        if (data.Status) {
+          callback(data);
+          // this.toast.success("Product Category Updated Successfully..")
+
+          // this.spinner.loaderStop();
+          // this.listProductCategory();
+        }
+        else {
+          callback(null);
+        }
+      },
+      (error: any) => {
+        callback(null);
+      },
+      () => {
+        this.loader.loaderStop();
+      });
+  }
+  deleteItem(url: string, body: any, callback: Function) {
+    this.loader.loaderStart();
+    // console.log("its come")
+    this.commonMethod(url, body, 'DELETE').subscribe(
+      (data: any) => {
+        // console.log("its inside come")
+        if (data.Status) {
+          // this.toast.success("Product Category Deleted..")
+          // this.loader.loaderStop();
+          // this.showVisibility(false, false);
+          // this.listProductCategory();
+          callback(data);
+        }
+        else {
+          // console.log("its else come")
+          callback(null);
+        }
+      },
+      (error: any) => {
+        console.log("its error come")
+        this.loader.loaderStop();
+
+        callback(null);
+      },
+      () => {
+        this.loader.loaderStop();
+      });
+  }
+  setFocus(elm: string) {
+    setTimeout(() => {
+      (<HTMLInputElement>document.getElementById(elm)).focus();
+    }, 100);
+  }
+  uploadToCloud(formData: FormData) {
+    let headers = new HttpHeaders({
+      
+      'Accept': 'application/json',
+      'enctype': "multipart/form-data"
+    })
+    
+    let endPoint = this.baseUrl + '/api/image/upload';
+    console.log(endPoint);
+    return this.http.post(endPoint, formData, { headers });
+    
   }
 }

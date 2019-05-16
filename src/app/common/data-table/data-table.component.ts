@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
-import {SelectionModel} from '@angular/cdk/collections';
+import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { ColumnHeader } from "../../shared/constant/table-column.const";
 
@@ -45,8 +45,8 @@ export class DataTableComponent implements OnInit {
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
     this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
   /** The label for the checkbox on the passed row */
@@ -67,16 +67,44 @@ export class DataTableComponent implements OnInit {
   showCreate() {
     this.eventForCreate.emit(true);
   }
-  editEmit() {    
+  editEmit() {
     this.editPage.emit(this.selection.selected[0]);
   }
   deleteEmit() {
-    if(this.selection.selected.length){
-      let idList:number[]= this.selection.selected.map((v:any)=>{
+    if (this.selection.selected.length) {
+      let idList: number[] = this.selection.selected.map((v: any) => {
         return v.id;
       });
-      console.log(idList);
-    this.deletePage.emit(idList);
+      // console.log(idList);
+      this.deletePage.emit(idList);
     }
   }
+  // csvList: any[] = [];
+  // readFile(elem: any) {
+  //   var reader = new FileReader();
+  //   reader.onload = () => {
+  //     this.csvList = this.jsonFormat(reader.result);
+  //     console.log(this.csvList);
+  //   };
+  //   reader.readAsBinaryString(elem.files[0]);
+  // };
+  // jsonFormat(data: any) {
+  //   console.log(data);
+  //   let list: any[] = [];
+  //   let rows = data.split("\n");
+  //   let rowparts = rows[0].split(",");
+  //   console.log(rows);
+  //   for (let i = 1; i < rows.length; i++) {
+  //     if (rows[i]) {
+  //       let item = {};
+
+  //       let parts = rows[i].split(",");
+  //       for (let j = 0; j < parts.length; j++) {
+  //         item[rowparts[j]] = parts[j];
+  //       }
+  //       list.push(item);
+  //     }
+  //   }
+  //   return list;
+  // }
 }

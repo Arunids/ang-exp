@@ -22,6 +22,7 @@ export class SpinnerService {
   }
   loaderStop() {
     let elem:any = document.getElementById('spinner-popup');
-    return elem.parentNode.removeChild(elem);
+    if(elem && elem.parentNode)
+    elem.parentNode.removeChild(elem);
   }
 }

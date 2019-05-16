@@ -13,7 +13,7 @@
 
                 <div class="col-sm-3">
                     <mat-form-field class="example-full-width">
-                        <input autofocus matInput placeholder="Code" [(ngModel)]="category.code">
+                        <input id="matcode" autofocus matInput placeholder="Code" [(ngModel)]="category.code">
                     </mat-form-field>
                 </div>
                 <div class="col-sm-3">
@@ -23,9 +23,10 @@
                 </div>
             </mat-card>
             <mat-card class="col-sm-12" style="margin-top: 25px;">
+                <button *ngIf="category.id==0" class="button savecontinue" (click)="save(true)">Save & Continue</button>
                 <div class="right-align">
                     <button class="button-border" (click)="hideCreate()">Back</button>
-                    <button class="button" (click)="save()">Save</button>
+                    <button class="button" (click)="save(false)">Save</button>
                 </div>
             </mat-card>
         </div>

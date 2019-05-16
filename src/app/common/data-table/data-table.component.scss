@@ -69,3 +69,15 @@ button.edit {
 .generic-button button[disabled] i {
     color: #e2e2e2;
 }
+
+.generic-button input[type=file] {
+    border: 1px solid;
+    position: absolute;
+    height: 50px;
+    width: 38px;
+    top: -7px;
+    border-radius: 50%;
+    margin-left: 50px;
+    opacity: 0;
+    cursor: pointer;
+}

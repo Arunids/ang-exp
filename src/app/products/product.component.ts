@@ -1,60 +1,97 @@
 import { Component, OnInit } from '@angular/core';
 import { WebService } from '../shared/services/web.service';
 import { ToastService } from '../shared/services/toast.service';
-import { SpinnerService } from '../shared/services/spinner.service';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
+  upload: string = 'none';
   visibility: any = {
     "listVisible": false,
     "createVisible": false
   }
-  category: any = {
+  product: any = {
     id: 0,
     code: "",
-    name: ""
+    name: "",
+    category_id: "",
+    price: 0,
+    description: "",
+    image: ""
   }
+  image_public_id: string = "";
   dataList: any[] = [];
-  constructor(private webService: WebService, private toast: ToastService, private spinner:SpinnerService) { }
+  productList: any[] = [];
+  productCategoryList: any[] = [];
+  constructor(private webService: WebService, private toast: ToastService) { }
 
   ngOnInit() {
-    this.listProductCategory();
+    this.listProduct();
+  }
+  listProduct() {
+
+    this.webService.listItem('/api/product', (data: any) => {
+      if (data) {
+        this.productList = data.Response;
+        data.Response = data.Response.map((v: any) => {
+          return {
+            id: v.id,
+            image: v.image,
+            name: v.name,
+            code: v.code,
+            price: v.price,
+            category_name: v.category_name
+          }
+        });
+        this.dataList = data.Response;
+        this.showVisibility(false, true);
+        this.listProductCategory();
+      }
+    });
+    // this.webService.commonMethod('/api/product', '', 'GET').subscribe(
+    //   (data: any) => {
+
+    //     if (data.Status == 'Success' && data.Response.length) {
+    //       data.Response = data.Response.map((v: any) => {
+    //         return {
+    //           id: v.id,
+    //           image: v.image,
+    //           name: v.name,
+    //           price: v.price,
+    //           category_name:v.category_name
+    //         }
+    //       });
+    //     }
+    //     this.dataList = data.Response;
+    //     // this.visibility.listVisible = true;
+    //     // this.visibility.createVisible = false;
+    //     this.showVisibility(false, true);
+    //   }
+
+    // )
+
   }
   listProductCategory() {
-    this.spinner.loaderStart();
-    this.webService.commonMethod('/api/product', '', 'GET').subscribe(
-      (data: any) => {
-        this.spinner.loaderStop();
-        if (data.Status == 'Success' && data.Response.length) {
-          data.Response = data.Response.map((v: any) => {
-            return {
-              id: v.id,
-              image: v.image,
-              name: v.name,
-              price: v.price,
-              product_category:v.product_category
-            }
-          });
-        }
-        this.dataList = data.Response;
-        // this.visibility.listVisible = true;
-        // this.visibility.createVisible = false;
-        this.showVisibility(false, true);
-      }
-
-    )
+    this.webService.listItem('/api/products_category', (data: any) => {
+      this.productCategoryList = data.Response;
+    });
   }
 
   showCreate(flag: any) {
-    this.category = {
+    this.product = {
       id: 0,
       code: "",
-      name: ""
+      name: "",
+      category: "",
+      price: 0,
+      description: "",
+      image: ""
     }
+    this.upload = 'none';
     this.showVisibility(true, false);
+    this.webService.setFocus('matcode');
   }
 
   showList(flag: any) {
@@ -63,50 +100,104 @@ export class ProductComponent implements OnInit {
   hideCreate() {
     this.showVisibility(false, true);
   }
-  save() {
-    this.spinner.loaderStart();
-    if (this.category.id == 0) {
-      this.webService.commonMethod('/api/products_category/create', this.category, 'POST').subscribe(
-        (data: any) => {
-          if (data.Status) {
-            this.toast.success("Product Category Created Successfully..")
-            this.spinner.loaderStop();
-            this.listProductCategory();
+  save(flag: boolean) {
+    // if(1){
+    //   console.log(this.product);
+    //   return;
+    // }
+    // this.showVisibility(false, false);
+    if (this.product.id == 0) {
+      this.webService.createItem('/api/product/create', this.product, (data: any) => {
+        if (data) {
+          if (flag) {
+            this.showCreate(false);
+            this.listProduct();
           }
-        });
+          else
+            this.listProduct();
+        }
+      });
     }
     else {
-      this.webService.commonMethod('/api/products_category/' + this.category.id, this.category, 'PUT').subscribe(
-        (data: any) => {
-          if (data.Status) {
-            this.toast.success("Product Category Updated Successfully..")
-
-            this.spinner.loaderStop();
-            this.listProductCategory();
-          }
-        });
+      this.webService.updateItem('/api/product/' + this.product.id, this.product, (data: any) => {
+        if (data) {
+          this.toast.success("Product Updated Successfully..")
+          this.listProduct();
+        }
+      });
     }
   }
   viewRow(rowData: any) {
-    this.category.id = rowData.id;
-    this.category.code = rowData.code;
-    this.category.name = rowData.name;
+    let list: any = this.productList.filter(v => v.id == rowData.id);
+    list = list[0];
+    // console.log(list);
+    this.product.id = list.id;
+    this.product.code = list.code;
+    this.product.name = list.name;
+    this.product.category_id = list.category_id;
+    this.product.image = list.image;
+    this.image_public_id = this.getPublicImageId(list.image);
+    this.product.price = list.price;
+    this.product.description = list.description;
+    console.log(this.product.image_public_id);
+    if (this.product.image) {
+      this.upload = 'completed';
+    } else {
+      this.upload = 'none';
+    }
     this.showVisibility(true, false);
+    this.webService.setFocus('matcode');
   }
-  deleteRow(rowData:any){
-    this.spinner.loaderStart();
-    this.webService.commonMethod('/api/products_category/' + rowData.id, '', 'DELETE').subscribe(
-      (data: any) => {
-        if (data.Status) {
-          this.toast.success("Product Category Deleted..")
-          this.spinner.loaderStop();
-          this.showVisibility(false,false);
-          this.listProductCategory();
-        }
-      });
+  getPublicImageId(image:string){
+    if(!image) return '';
+    return image.substring(image.lastIndexOf('/')+1,image.lastIndexOf('.'));
+  }
+  deleteRow(rowData: any) {
+    this.webService.deleteItem('/api/product', rowData, (data: any) => {
+      if (data) {
+        this.toast.success("Product Deleted..");
+        this.showVisibility(false, false);
+
+        this.listProduct();
+      }
+    });
   }
   showVisibility(createFlag: boolean, listFlag: boolean) {
     this.visibility.listVisible = listFlag;
     this.visibility.createVisible = createFlag;
+  }
+  uploadImage(elem: any) {
+    this.upload = 'started';
+    let fileList: FileList = elem.target.files;
+    let file: File = fileList[0];
+    let formData = new FormData();
+
+    formData.append('image', file, file.name);
+    elem.srcElement.value = null;
+    this.webService.uploadToCloud(formData).subscribe(
+      (data: any) => {
+        // console.log(data);
+        if (data.Status == "Success") {
+          this.upload = 'completed';
+          this.image_public_id = data.Response.public_id
+          this.product.image = data.Response.url;
+        } else {
+          this.toast.error('Image upload failed');
+          this.upload = 'none';
+        }
+      }, error => {
+        this.toast.error('Image upload failed');
+        this.upload = 'none';
+      }
+    )
+  }
+  removeImage() {
+    console.log(this.image_public_id);
+    this.webService.deleteItem('/api/image/remove', [this.image_public_id], (data: any) => {
+      if (data) {
+        this.toast.success("Image removed..");
+        this.upload = 'none';
+      }
+    })
   }
 }
