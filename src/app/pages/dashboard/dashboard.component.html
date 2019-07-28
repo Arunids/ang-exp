@@ -1,1 +1,9 @@
-Dashboard Works!!!
+<div class="main">
+    <div class="dashboard">
+        <mat-card *ngFor="let m of list" class="pointer" (click)="redirectURL(m.URL)">
+            <h5 class="m0"><i [class]="m.icon" [ngStyle]="{color:m.color}" aria-hidden="true"></i></h5>
+            <span>{{m.title}}</span>
+            <h2 class="m0">{{m.value}}</h2>
+        </mat-card>
+    </div>
+</div>

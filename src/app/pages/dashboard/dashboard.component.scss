@@ -1,2 +1,24 @@
 @import '../../../styles.scss';
+.dashboard mat-card {
+    float: left;
+    width: 120px;
+    text-align: center;
+    margin: 12px;
+}
 
+.dashboard mat-card i {
+    font-size: 22px;
+}
+
+.m0 {
+    margin: 0;
+}
+
+.dashboard mat-card span {
+    font-size: 11px;
+    color: #9c9c9c;
+}
+
+.pointer {
+    cursor: pointer;
+}

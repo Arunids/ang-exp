@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  isLogin:boolean = false;
+  // isLogin:boolean = false;
   constructor(){
   }
   ngOnInit(){

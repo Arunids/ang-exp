@@ -33,7 +33,7 @@ export class ProductComponent implements OnInit {
   listProduct() {
 
     this.webService.listItem('/api/product', (data: any) => {
-      if (data) {
+      if (data && data.Response.length) {
         this.productList = data.Response;
         data.Response = data.Response.map((v: any) => {
           return {
@@ -46,32 +46,14 @@ export class ProductComponent implements OnInit {
           }
         });
         this.dataList = data.Response;
-        this.showVisibility(false, true);
-        this.listProductCategory();
+       
+      }else {
+        this.dataList = [];
       }
+      this.showVisibility(false, true);
+      this.listProductCategory();
     });
-    // this.webService.commonMethod('/api/product', '', 'GET').subscribe(
-    //   (data: any) => {
-
-    //     if (data.Status == 'Success' && data.Response.length) {
-    //       data.Response = data.Response.map((v: any) => {
-    //         return {
-    //           id: v.id,
-    //           image: v.image,
-    //           name: v.name,
-    //           price: v.price,
-    //           category_name:v.category_name
-    //         }
-    //       });
-    //     }
-    //     this.dataList = data.Response;
-    //     // this.visibility.listVisible = true;
-    //     // this.visibility.createVisible = false;
-    //     this.showVisibility(false, true);
-    //   }
-
-    // )
-
+    
   }
   listProductCategory() {
     this.webService.listItem('/api/products_category', (data: any) => {

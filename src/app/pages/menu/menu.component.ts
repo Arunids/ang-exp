@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {AuthService} from '../../shared/services/auth/auth.service';
+import { AuthService } from '../../shared/services/auth/auth.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -13,7 +13,7 @@ export class MenuComponent implements OnInit {
     "id": 0,
     "name": "Home",
     "icon": "",
-    "url": ""
+    "url": "/dashboard"
   },
   {
     "id": 0,
@@ -38,7 +38,7 @@ export class MenuComponent implements OnInit {
     "url": ""
   }];
   isLoggedIn$: Observable<boolean>;
-  constructor(private router: Router,private authService:AuthService) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   onLogout() {
     this.authService.logout();
@@ -48,22 +48,20 @@ export class MenuComponent implements OnInit {
   ngOnInit() {
     this.isLoggedIn$ = this.authService.isLoggedIn;
     this.isLoggedIn$.subscribe(
-      data =>{
+      data => {
         console.log(data);
+
+        this.makeActiveMenu();
       }
     );
-    setTimeout(()=>{
 
-      this.makeActiveMenu();
-    },100)
   }
 
   navigateUrl(url: any) {
     this.router.navigate([url]);
-    setTimeout(()=>{
-
+    setTimeout(() => {
       this.makeActiveMenu();
-    },100)
+    }, 100);
   }
 
   makeActiveMenu() {
@@ -72,6 +70,8 @@ export class MenuComponent implements OnInit {
       x.isActive = false;
     }
     let currentUrl: string = window.location.hash.substring(1);
+    if (currentUrl == '/login')
+      currentUrl = '/dashboard';
     for (let x of this.menuList) {
       if (x.url == currentUrl) {
         x.isActive = true;

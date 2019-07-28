@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductCategoryComponent } from './product-category/product-category.component';
 import { ProductComponent } from './products/product.component';
 import { ImageLoaderComponent } from './common/image-loader/image-loader.component';
+import { DataTablePlainComponent } from './common/data-table-plain/data-table-plain.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ImageLoaderComponent } from './common/image-loader/image-loader.compone
     routingComponents,
     ProductComponent,
     ProductCategoryComponent,
-    ImageLoaderComponent
+    ImageLoaderComponent,
+    DataTablePlainComponent
 
   ],
   imports: [

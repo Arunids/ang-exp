@@ -15,7 +15,7 @@ export class WebService {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      // 'authorization': this.getAccessToken()
+      'Authorization': this.getAccessToken()
     })
     let body = data;
     let endPoint = this.baseUrl + url;
@@ -27,7 +27,7 @@ export class WebService {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      // 'authorization': this.getAccessToken()
+      'Authorization': this.getAccessToken()
     })
     let endPoint = this.baseUrl + url;
     if (method == 'POST')
@@ -57,19 +57,15 @@ export class WebService {
           //     name: v.name
           //   }
           // });
-          callback(data);
+          callback(data, '');
         }
         else {
-          callback(null);
+          callback(null, data);
         }
+        this.loader.loaderStop();
       },
       (error: any) => {
-        this.loader.loaderStop();
-        callback(null);
-      },
-      () => {
-        this.loader.loaderStop();
-
+        callback(null, "Please check your Internet Connection !!!");
       }
 
     )
@@ -159,14 +155,18 @@ export class WebService {
   }
   uploadToCloud(formData: FormData) {
     let headers = new HttpHeaders({
-      
+
       'Accept': 'application/json',
       'enctype': "multipart/form-data"
     })
-    
+
     let endPoint = this.baseUrl + '/api/image/upload';
-    console.log(endPoint);
+    // console.log(endPoint);
     return this.http.post(endPoint, formData, { headers });
-    
+
+  }
+  getAccessToken() {
+    if(!localStorage.getItem('app_token')) return '';
+    return 'bearer ' + localStorage.getItem('app_token');
   }
 }

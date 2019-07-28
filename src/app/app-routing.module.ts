@@ -8,7 +8,7 @@ import { DataTableComponent } from './common/data-table/data-table.component';
 
 // import { InventoryListComponent } from './products/product-inventory/inventory-list/inventory-list.component';
 // import { InventoryCreateComponent } from './products/product-inventory/inventory-create/inventory-create.component';
-import { OrdersComponent } from './orders/orders/orders.component';
+import { OrdersComponent } from './orders/orders.component';
 import { FormComponent } from './pages/form/form.component';
 import { ProductCategoryComponent } from './product-category/product-category.component';
 import { AuthGuard } from './shared/services/auth/auth.guard';
@@ -17,10 +17,10 @@ import { ProductComponent } from './products/product.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuard] },
   { path: 'product-inventory', component: ProductComponent,canActivate: [AuthGuard] },
   { path: 'product-category', component: ProductCategoryComponent,canActivate: [AuthGuard] },
-  { path: 'orders', component: OrdersComponent },
+  { path: 'orders', component: OrdersComponent,canActivate: [AuthGuard] },
   { path: 'form', component: FormComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'login' },
 ];

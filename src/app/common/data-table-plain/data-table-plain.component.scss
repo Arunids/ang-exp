@@ -1,0 +1,9 @@
+@import '../../../config.scss';
+.custom-table {
+    margin-top: 25px;
+    background-color: $white-color;
+}
+
+.custom-table table {
+    width: 100%;
+}

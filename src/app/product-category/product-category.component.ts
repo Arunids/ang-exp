@@ -24,7 +24,7 @@ export class ProductCategoryComponent implements OnInit {
     this.listProductCategory();
   }
   listProductCategory() {
-    this.webService.listItem('/api/products_category', (data: any) => {
+    this.webService.listItem('/api/products_category', (data: any,message:string) => {
       if(data){
       data.Response = data.Response.map((v: any) => {
         return {
@@ -34,12 +34,13 @@ export class ProductCategoryComponent implements OnInit {
         }
       });
       this.dataList = data.Response;
-
-      this.showVisibility(false, true);
     }
     else {
-      this.toast.error("Please check your Internet Connection !!!")
+      this.dataList = [];
+      this.toast.error(message)
     }
+    this.showVisibility(false, true);
+
     });
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
-import { SelectionModel } from '@angular/cdk/collections';
+import { SelectionModel, DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { ColumnHeader } from "../../shared/constant/table-column.const";
 
@@ -19,20 +19,30 @@ export class DataTableComponent implements OnInit {
   columnHeader: any = ColumnHeader
   dataSource: any;
   extraColumn: string[] = [];
+  isListEmpty: boolean = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor() { }
   ngOnInit() {
-    let actualCol: any = Object.keys(this.dataList[0]);
-    actualCol = actualCol.filter((v: any) => v != 'id');
-    this.displayedColumns = actualCol;
-    this.extraColumn = [...actualCol];
-    if (this.editVisibliliy)
-      this.extraColumn.unshift('actions');
-    this.dataSource = new MatTableDataSource<any>(this.dataList)
-    this.dataSource.paginator = this.paginator;
+    if (this.dataList.length) {
+      this.isListEmpty = false;
+      let actualCol: any = Object.keys(this.dataList[0]);
+      actualCol = actualCol.filter((v: any) => v != 'id');
+      this.displayedColumns = actualCol;
+      this.extraColumn = [...actualCol];
+      if (this.editVisibliliy)
+        this.extraColumn.unshift('actions');
+      this.dataSource = new MatTableDataSource<any>(this.dataList);
+
+      this.dataSource.paginator = this.paginator;
+      // console.log("Coming2222");
+
+    }
+    else {
+      // console.log("Coming");
+      this.isListEmpty = true;
+    }
   }
-  // displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
-  // dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+
   selection = new SelectionModel<any>(true, []);
 
   /** Whether the number of selected elements matches the total number of rows. */

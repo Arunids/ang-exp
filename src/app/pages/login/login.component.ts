@@ -1,30 +1,8 @@
-/*import { Component, OnInit } from '@angular/core';
-import { WebService } from 'src/app/shared/services/web.service';
-
-@Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  providers: [WebService]
-
-})
-export class LoginComponent implements OnInit {
-
-  user:any = {
-    name:"",
-    pass:""
-  };
-  constructor(private _webservice: WebService) { }
-
-  ngOnInit() {
-  }
-
-}
-*/
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WebService } from 'src/app/shared/services/web.service';
+import { SpinnerService } from '../../shared/services/spinner.service';
 
 
 import { AuthService } from '../../shared/services/auth/auth.service';
@@ -43,12 +21,13 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private webservice: WebService,
-    private router:Router
-  ) {}
+    private router: Router,
+    private loader: SpinnerService
+  ) { }
 
   ngOnInit() {
-    let flag:boolean = localStorage.getItem('app_token') ? true : false;
-    if(flag){
+    let flag: boolean = localStorage.getItem('app_token') ? true : false;
+    if (flag) {
       this.router.navigate(['/dashboard']);
       return;
     }
@@ -66,10 +45,25 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    // this.loader.loaderStart();
     if (this.form.valid) {
-      this.authService.login(this.form.value);
+      let requestData = {
+        "username": "skv@gmail.com",
+        "password": "skv"
+      };
+      this.webservice.commonMethod('/api/user/login', requestData).subscribe(
+        data => {
+          console.log(data);
+          if (data.Status == 'Success')
+            this.authService.allowLogin();
+
+          localStorage.setItem('app_token', data.Response);
+          this.router.navigate(['/dashboard']);
+
+
+        }
+      )
     }
-    localStorage.setItem('app_token',"1");
     this.formSubmitAttempt = true;
   }
 }

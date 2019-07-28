@@ -9,5 +9,6 @@ export const ColumnHeader = {
     image: "Image",
     is_stock:"Is Stock",
     description:"Description",
-    product_category:"Category"
+    product_category:"Category",
+    category_name:"Category"
 }
