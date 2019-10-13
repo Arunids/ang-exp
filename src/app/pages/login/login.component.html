@@ -6,9 +6,9 @@
                 <input matInput placeholder="User Name" type="text" [(ngModel)]="user.name" [ngModelOptions]="{standalone: true}">
             </mat-form-field> -->
             <mat-form-field class="full-width">
-                <input matInput placeholder="Username" formControlName="userName" required>
-                <mat-error *ngIf="isFieldInvalid('userName')">
-                    Please inform your user name
+                <input matInput placeholder="Username" formControlName="username" required>
+                <mat-error *ngIf="isFieldInvalid('username')">
+                    Please enter your user name
                 </mat-error>
             </mat-form-field>
 
@@ -17,8 +17,8 @@
             </mat-form-field> -->
             <mat-form-field class="full-width">
                 <input matInput type="password" placeholder="Password" formControlName="password" required>
-                <mat-error *ngIf="isFieldInvalid('userName')">
-                    Please inform your password
+                <mat-error *ngIf="isFieldInvalid('password')">
+                    Please enter your password
                 </mat-error>
             </mat-form-field>
 

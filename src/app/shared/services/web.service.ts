@@ -50,13 +50,6 @@ export class WebService {
     this.commonMethod(url, '', 'GET').subscribe(
       (data: any) => {
         if (data.Status == 'Success' && data.Response.length) {
-          // data.Response = data.Response.map((v: any) => {
-          //   return {
-          //     id: v.id,
-          //     code: v.code,
-          //     name: v.name
-          //   }
-          // });
           callback(data, '');
         }
         else {
@@ -66,6 +59,7 @@ export class WebService {
       },
       (error: any) => {
         callback(null, "Please check your Internet Connection !!!");
+        this.loader.loaderStop();
       }
 
     )
@@ -89,7 +83,6 @@ export class WebService {
         }
       },
       (error: any) => {
-        this.loader.loaderStop();
         callback(null);
       },
       () => {

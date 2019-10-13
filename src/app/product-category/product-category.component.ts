@@ -8,6 +8,8 @@ import { ToastService } from '../shared/services/toast.service';
   styleUrls: ['./product-category.component.scss']
 })
 export class ProductCategoryComponent implements OnInit {
+  upload: string = 'none';
+  image_public_id: string = "";
   visibility: any = {
     "listVisible": false,
     "createVisible": false
@@ -24,20 +26,21 @@ export class ProductCategoryComponent implements OnInit {
     this.listProductCategory();
   }
   listProductCategory() {
+    // this.showVisibility(false, false);
     this.webService.listItem('/api/products_category', (data: any,message:string) => {
-      if(data){
+      if(data && data.Response.length){
       data.Response = data.Response.map((v: any) => {
         return {
           id: v.id,
           code: v.code,
-          name: v.name
+          name: v.name,
+          image: v.image
         }
       });
       this.dataList = data.Response;
     }
     else {
       this.dataList = [];
-      this.toast.error(message)
     }
     this.showVisibility(false, true);
 
@@ -48,7 +51,8 @@ export class ProductCategoryComponent implements OnInit {
     this.category = {
       id: 0,
       code: "",
-      name: ""
+      name: "",
+      image:""
     }
     this.showVisibility(true, false);
     this.webService.setFocus('matcode');
@@ -61,7 +65,7 @@ export class ProductCategoryComponent implements OnInit {
     this.showVisibility(false, true);
   }
   save(flag: boolean) {
-    this.showVisibility(false, false);
+    
     if (this.category.id == 0) {
       this.webService.createItem('/api/products_category/create', this.category, (data: any) => {
         if (data) {
@@ -83,9 +87,14 @@ export class ProductCategoryComponent implements OnInit {
     }
   }
   viewRow(rowData: any) {
-    this.category.id = rowData.id;
-    this.category.code = rowData.code;
-    this.category.name = rowData.name;
+    console.log(rowData);
+    this.category = {
+      id: rowData.id,
+      code: rowData.code,
+      name: rowData.name,
+      image:rowData.image
+    }
+    this.upload = 'completed'
     this.showVisibility(true, false);
     this.webService.setFocus('matcode');
   }
@@ -102,5 +111,37 @@ export class ProductCategoryComponent implements OnInit {
   showVisibility(createFlag: boolean, listFlag: boolean) {
     this.visibility.listVisible = listFlag;
     this.visibility.createVisible = createFlag;
+  }
+
+  uploadImage(elem: any) {
+    this.upload = 'started';
+    let fileList: FileList = elem.target.files;
+    let file: File = fileList[0];
+    let formData = new FormData();
+
+    formData.append('image', file, file.name);
+    elem.srcElement.value = null;
+    this.webService.uploadToCloud(formData).subscribe(
+      (data: any) => {
+        // console.log(data);
+        if (data.Status == "Success") {
+          this.upload = 'completed';
+          this.image_public_id = data.Response.public_id
+          this.category.image = data.Response.url;
+        } else {
+          this.toast.error('Image upload failed');
+          this.upload = 'none';
+        }
+      }, error => {
+        this.toast.error('Image upload failed');
+        this.upload = 'none';
+      }
+    )
+  }
+  removeImage() {
+    this.webService.deleteItem('/api/image/remove', [this.image_public_id], (data: any) => {
+      this.toast.success("Image removed..");
+        this.upload = 'none';
+    })
   }
 }

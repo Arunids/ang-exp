@@ -5,7 +5,7 @@
 
 
     <!-- <app-pagination-list></app-pagination-list> -->
-    <app-data-table *ngIf="visibility.listVisible" (eventForCreate)="showCreate($event)" [dataList]="dataList" (editPage)="viewRow($event)" (deletePage)="deleteRow($event)"></app-data-table>
+    <app-data-table *ngIf="visibility.listVisible" source="product_category" (eventForCreate)="showCreate($event)" [dataList]="dataList" (editPage)="viewRow($event)" (deletePage)="deleteRow($event)"></app-data-table>
 
     <div *ngIf="visibility.createVisible">
         <div class="col-sm-12">
@@ -20,6 +20,21 @@
                     <mat-form-field class="example-full-width">
                         <input matInput placeholder="Name" [(ngModel)]="category.name">
                     </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <h4>Upload Product Category Image</h4>
+                    <div class="file-upload" *ngIf="upload=='none' || upload == 'started'">
+                        <label id="#bb">
+                          <p><i class="fa fa-upload" style="font-size: 20px;"></i></p>
+                          <b> Uploaded files here</b>
+                          <input type="file" (change)="uploadImage($event)" style="margin-top: 20px;">
+                        </label>
+                        <img *ngIf="upload == 'started'" src="../../assets/image/spinner.gif">
+                    </div>
+                    <div class="image-preview" *ngIf="upload=='completed'">
+                        <button (click)="removeImage()"><i class="fa fa-times"></i></button>
+                        <img [src]="category.image">
+                    </div>
                 </div>
             </mat-card>
             <mat-card class="col-sm-12" style="margin-top: 25px;">

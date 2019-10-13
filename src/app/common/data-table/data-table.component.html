@@ -11,6 +11,7 @@
                     <div class="generic-button">
                         <button title="Delete Selected Row" [disabled]="selection.selected.length == 0" (click)="deleteEmit()"><i class="fa fa-trash"></i></button>
                         <button title="Edit Selected Row" [disabled]="selection.selected.length != 1" (click)="editEmit()"><i class="fa fa-edit"></i></button>
+                        <button *ngIf="source == 'product'" title="Add Images" [disabled]="selection.selected.length != 1" (click)="addImagesEmit()" style="margin-left: 50px;"><i class="fa fa-images"></i></button>
 
                         <!-- <input type="file" (change)="readFile($event.target)" name="myfile">
                         <button style="margin-left: 50px;"><i class="fa fa-upload"></i></button>

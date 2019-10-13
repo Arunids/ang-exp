@@ -11,6 +11,7 @@ import { ProductCategoryComponent } from './product-category/product-category.co
 import { ProductComponent } from './products/product.component';
 import { ImageLoaderComponent } from './common/image-loader/image-loader.component';
 import { DataTablePlainComponent } from './common/data-table-plain/data-table-plain.component';
+import { SettingComponent } from './setting/setting.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { DataTablePlainComponent } from './common/data-table-plain/data-table-pl
     ProductComponent,
     ProductCategoryComponent,
     ImageLoaderComponent,
-    DataTablePlainComponent
+    DataTablePlainComponent,
+    SettingComponent
 
   ],
   imports: [

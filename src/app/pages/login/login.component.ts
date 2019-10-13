@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WebService } from 'src/app/shared/services/web.service';
 import { SpinnerService } from '../../shared/services/spinner.service';
+import { ToastService } from '../../shared/services/toast.service';
 
 
 import { AuthService } from '../../shared/services/auth/auth.service';
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private webservice: WebService,
     private router: Router,
-    private loader: SpinnerService
+    private loader: SpinnerService,
+    private toast: ToastService
   ) { }
 
   ngOnInit() {
@@ -32,7 +34,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.form = this.fb.group({
-      userName: ['', Validators.required],
+      username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
@@ -46,24 +48,36 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     // this.loader.loaderStart();
-    if (this.form.valid) {
-      let requestData = {
-        "username": "skv@gmail.com",
-        "password": "skv"
-      };
-      this.webservice.commonMethod('/api/user/login', requestData).subscribe(
+    console.log(this.form)
+    if (this.form && !this.form.valid) {
+      this.toast.error("Please provide valide email/password");
+      return;
+    }
+      // let requestData = {
+      //   "username": "skv@gmail.com",
+      //   "password": "skv"
+      // };
+      this.webservice.commonMethod('/api/user/login', this.form.value).subscribe(
         data => {
-          console.log(data);
-          if (data.Status == 'Success')
+          // console.log(data);
+          if (data.Status == 'Success'){
             this.authService.allowLogin();
 
           localStorage.setItem('app_token', data.Response);
           this.router.navigate(['/dashboard']);
+          }
+          else{
+            this.toast.error("Invalid username /password")
+          }
 
+
+        },
+        error=>{
+          this.toast.error("Invalid username /password")
 
         }
       )
-    }
-    this.formSubmitAttempt = true;
+    //}
+    // this.formSubmitAttempt = true;
   }
 }

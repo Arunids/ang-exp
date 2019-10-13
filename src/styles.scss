@@ -166,3 +166,61 @@ button:focus {
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
     background-color: $primary-color;
 }
+
+.file-upload {
+    text-align: center;
+}
+
+.file-upload label {
+    background: #ffffff;
+    color: #5690ff;
+    border: 1px solid #5690ff;
+    border-style: dashed;
+    font-size: 12px;
+    padding: 15px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    display: block;
+    height: 162px;
+}
+
+.file-upload label p {
+    margin: 33px;
+}
+
+.file-upload input[type="file"] {
+    display: none;
+}
+
+.upload-div {
+    width: 70px;
+    height: 70px;
+    text-align: center;
+    border: 1px solid;
+    font-size: 12px;
+    border-style: dashed;
+    color: $primary-color;
+    float: left;
+    margin: 0px 8px;
+}
+
+.image-preview {
+    display: inline-block
+}
+
+.image-preview img {
+    height: 162px;
+    width: 330px;
+}
+
+.image-preview button {
+    position: absolute;
+    right: 0;
+    height: 30px;
+    width: 30px;
+    border: none;
+    border-radius: 50%;
+    margin-top: -12px;
+    cursor: pointer
+}

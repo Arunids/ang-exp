@@ -12,9 +12,11 @@ import { ColumnHeader } from "../../shared/constant/table-column.const";
 export class DataTableComponent implements OnInit {
   @Output() eventForCreate = new EventEmitter();
   @Output() editPage?: any = new EventEmitter();
+  @Output() addImagePage?: any = new EventEmitter();
   @Output() deletePage?: any = new EventEmitter();
   @Input() dataList: any;
   @Input() editVisibliliy?: boolean = true;
+  @Input() source ?: string = "";
   displayedColumns: string[] = [];
   columnHeader: any = ColumnHeader
   dataSource: any;
@@ -79,6 +81,9 @@ export class DataTableComponent implements OnInit {
   }
   editEmit() {
     this.editPage.emit(this.selection.selected[0]);
+  }
+  addImagesEmit(){
+    this.addImagePage.emit(this.selection.selected[0].id);
   }
   deleteEmit() {
     if (this.selection.selected.length) {

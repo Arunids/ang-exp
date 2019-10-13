@@ -25,7 +25,7 @@ export class MenuComponent implements OnInit {
     "id": 0,
     "name": "Products",
     "icon": "",
-    "url": "/product-inventory"
+    "url": "/product"
   }, {
     "id": 0,
     "name": "Orders",
@@ -35,7 +35,7 @@ export class MenuComponent implements OnInit {
     "id": 0,
     "name": "Settings",
     "icon": "",
-    "url": ""
+    "url": "/setting"
   }];
   isLoggedIn$: Observable<boolean>;
   constructor(private router: Router, private authService: AuthService) { }

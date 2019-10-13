@@ -13,13 +13,15 @@ import { FormComponent } from './pages/form/form.component';
 import { ProductCategoryComponent } from './product-category/product-category.component';
 import { AuthGuard } from './shared/services/auth/auth.guard';
 import { ProductComponent } from './products/product.component';
+import { SettingComponent } from './setting/setting.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent,canActivate: [AuthGuard] },
-  { path: 'product-inventory', component: ProductComponent,canActivate: [AuthGuard] },
   { path: 'product-category', component: ProductCategoryComponent,canActivate: [AuthGuard] },
+  { path: 'product', component: ProductComponent,canActivate: [AuthGuard] },
+  { path: 'setting', component: SettingComponent,canActivate: [AuthGuard] },
   { path: 'orders', component: OrdersComponent,canActivate: [AuthGuard] },
   { path: 'form', component: FormComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'login' },
