@@ -7,7 +7,7 @@ import { callbackify } from 'util';
 @Injectable({ providedIn: 'root' })
 export class WebService {
   constructor(private http: HttpClient, private loader: SpinnerService) { }
-  baseUrl: string = 'http://localhost:3000';
+  baseUrl: string = 'http://localhost/shop_api/';
   // baseUrl: string = 'https://expang.herokuapp.com';
 
 
@@ -71,6 +71,8 @@ export class WebService {
       (data: any) => {
         if (data.Status) {
           // this.toast.success("Product Category Created Successfully..")
+        this.loader.loaderStop();
+
           callback(data);
           // if(flag){
           //   this.showCreate(false);
@@ -96,6 +98,7 @@ export class WebService {
     this.commonMethod(url, body, 'PUT').subscribe(
       (data: any) => {
         if (data.Status) {
+          this.loader.loaderStop();
           callback(data);
           // this.toast.success("Product Category Updated Successfully..")
 
@@ -132,7 +135,6 @@ export class WebService {
         }
       },
       (error: any) => {
-        console.log("its error come")
         this.loader.loaderStop();
 
         callback(null);
@@ -151,9 +153,10 @@ export class WebService {
 
       'Accept': 'application/json',
       'enctype': "multipart/form-data"
+
     })
 
-    let endPoint = this.baseUrl + '/api/image/upload';
+    let endPoint = this.baseUrl + 'upload';
     // console.log(endPoint);
     return this.http.post(endPoint, formData, { headers });
 

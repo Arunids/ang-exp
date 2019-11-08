@@ -10,6 +10,7 @@ import { ToastService } from '../shared/services/toast.service';
 export class ProductCategoryComponent implements OnInit {
   upload: string = 'none';
   image_public_id: string = "";
+  cloud_image_id:number = 0;
   visibility: any = {
     "listVisible": false,
     "createVisible": false
@@ -27,14 +28,14 @@ export class ProductCategoryComponent implements OnInit {
   }
   listProductCategory() {
     // this.showVisibility(false, false);
-    this.webService.listItem('/api/products_category', (data: any,message:string) => {
+    this.webService.listItem('product_category', (data: any,message:string) => {
       if(data && data.Response.length){
       data.Response = data.Response.map((v: any) => {
         return {
           id: v.id,
           code: v.code,
           name: v.name,
-          image: v.image
+          image: v.image_url
         }
       });
       this.dataList = data.Response;
@@ -54,6 +55,7 @@ export class ProductCategoryComponent implements OnInit {
       name: "",
       image:""
     }
+    this.upload = 'none';
     this.showVisibility(true, false);
     this.webService.setFocus('matcode');
   }
@@ -66,9 +68,12 @@ export class ProductCategoryComponent implements OnInit {
   }
   save(flag: boolean) {
     
+    let req :any = JSON.parse(JSON.stringify(this.category));
+    req.image = this.cloud_image_id;
     if (this.category.id == 0) {
-      this.webService.createItem('/api/products_category/create', this.category, (data: any) => {
+      this.webService.createItem('product_category', req, (data: any) => {
         if (data) {
+          this.toast.success("Product Category Created Successfully..")
           if (flag) {
             this.showCreate(false);
           }
@@ -78,7 +83,7 @@ export class ProductCategoryComponent implements OnInit {
       });
     }
     else {
-      this.webService.updateItem('/api/products_category/' + this.category.id, this.category, (data: any) => {
+      this.webService.updateItem('product_category/' + this.category.id, req, (data: any) => {
         if (data) {
           this.toast.success("Product Category Updated Successfully..")
           this.listProductCategory();
@@ -87,19 +92,22 @@ export class ProductCategoryComponent implements OnInit {
     }
   }
   viewRow(rowData: any) {
-    console.log(rowData);
     this.category = {
       id: rowData.id,
       code: rowData.code,
       name: rowData.name,
       image:rowData.image
     }
+    
+    if(this.category.image)
     this.upload = 'completed'
+    else
+    this.upload = 'none';
     this.showVisibility(true, false);
     this.webService.setFocus('matcode');
   }
   deleteRow(rowData: any) {
-    this.webService.deleteItem('/api/products_category/', rowData, (data: any) => {
+    this.webService.deleteItem('product_category', rowData, (data: any) => {
       if (data) {
         this.toast.success("Product Category Deleted..");
         this.showVisibility(false, false);
@@ -118,7 +126,8 @@ export class ProductCategoryComponent implements OnInit {
     let fileList: FileList = elem.target.files;
     let file: File = fileList[0];
     let formData = new FormData();
-
+    formData.append("source_type","product_category");
+    formData.append("source_id","0");
     formData.append('image', file, file.name);
     elem.srcElement.value = null;
     this.webService.uploadToCloud(formData).subscribe(
@@ -128,6 +137,7 @@ export class ProductCategoryComponent implements OnInit {
           this.upload = 'completed';
           this.image_public_id = data.Response.public_id
           this.category.image = data.Response.url;
+          this.cloud_image_id = data.Response.current_inserted_id;
         } else {
           this.toast.error('Image upload failed');
           this.upload = 'none';
@@ -139,7 +149,7 @@ export class ProductCategoryComponent implements OnInit {
     )
   }
   removeImage() {
-    this.webService.deleteItem('/api/image/remove', [this.image_public_id], (data: any) => {
+    this.webService.deleteItem('upload', [this.image_public_id], (data: any) => {
       this.toast.success("Image removed..");
         this.upload = 'none';
     })

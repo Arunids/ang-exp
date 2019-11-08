@@ -1,3 +1,85 @@
-<p>
-    setting works!
-</p>
+<div class="main">
+    <mat-tab-group>
+        <mat-tab label="First">
+            <app-data-table *ngIf="visibility.listVisible" source="banner" (eventForCreate)="showCreate($event)" [dataList]="dataList" (editPage)="viewRow($event)" (deletePage)="deleteRow($event)"></app-data-table>
+            <div class="col-sm-12" *ngIf="visibility.listVisible">
+                <div class="col-sm-12">
+                    <mat-card class="col-sm-12" style="margin-top: 25px;margin-bottom: 25px;">
+                        <div class="col-sm-12">
+                            <h4>Website Settings</h4>
+                            <div class="col-sm-6">
+                                <mat-form-field class="full-width">
+                                    <input matInput placeholder="Website Title">
+                                </mat-form-field>
+
+                                <mat-form-field class="full-width">
+                                    <input matInput placeholder="Website Sub Title">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="file">
+                            </div>
+                        </div>
+                        <button style="float:right" class="button">Save</button>
+                    </mat-card>
+                </div>
+            </div>
+
+            <div *ngIf="visibility.createVisible">
+                <div class="col-sm-12">
+                    <mat-card class="col-sm-12" style="margin-top: 25px;">
+                        <div class="col-sm-12">
+                            <h4>Upload Banner Image</h4>
+                            <div class="file-upload" *ngIf="upload=='none' || upload == 'started'">
+                                <label id="#bb">
+                                <p><i class="fa fa-upload" style="font-size: 20px;"></i></p>
+                                <b> Uploaded files here</b>
+                                <input type="file" (change)="uploadImage($event)" style="margin-top: 20px;">
+                            </label>
+                                <img *ngIf="upload == 'started'" src="../../assets/image/spinner.gif">
+                            </div>
+                            <div class="image-preview image-preview1" *ngIf="upload=='completed'">
+                                <button (click)="removeImage()"><i class="fa fa-times"></i></button>
+                                <img [src]="selectedBanner.image">
+                            </div>
+                        </div>
+                        <div>&nbsp;</div>
+                        <div class="col-sm-6">
+                            <mat-form-field class="full-width">
+                                <input id="matcode" autofocus matInput placeholder="Title" [(ngModel)]="selectedBanner.title">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-6">
+                            <mat-form-field class="full-width">
+                                <input matInput placeholder="Link URL" [(ngModel)]="selectedBanner.url">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-12">
+                            <mat-form-field class="full-width">
+                                <textarea rows="5" matInput placeholder="Description" [(ngModel)]="selectedBanner.description"></textarea>
+                            </mat-form-field>
+                        </div>
+
+                    </mat-card>
+                    <mat-card class="col-sm-12" style="margin-top: 25px;">
+                        <button *ngIf="selectedBanner.id==0" class="button savecontinue" (click)="saveBanner(true)">Save &
+                        Continue</button>
+                        <div class="right-align">
+                            <button class="button-border" (click)="hideCreate()">Back</button>
+                            <button class="button" (click)="saveBanner(false)">Save</button>
+                        </div>
+                    </mat-card>
+
+
+
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Second"> Content 2 </mat-tab>
+        <mat-tab label="Third"> Content 3 </mat-tab>
+    </mat-tab-group>
+
+
+
+
+</div>

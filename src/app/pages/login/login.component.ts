@@ -57,13 +57,13 @@ export class LoginComponent implements OnInit {
       //   "username": "skv@gmail.com",
       //   "password": "skv"
       // };
-      this.webservice.commonMethod('/api/user/login', this.form.value).subscribe(
+      this.webservice.commonMethod('user/login', this.form.value).subscribe(
         data => {
           // console.log(data);
           if (data.Status == 'Success'){
             this.authService.allowLogin();
 
-          localStorage.setItem('app_token', data.Response);
+          localStorage.setItem('app_token', data.Response.token);
           this.router.navigate(['/dashboard']);
           }
           else{

@@ -10,5 +10,7 @@ export const ColumnHeader = {
     is_stock:"Is Stock",
     description:"Description",
     product_category:"Category",
-    category_name:"Category"
+    category_name:"Category",
+    title:"Title",
+    url:"Link URL"
 }

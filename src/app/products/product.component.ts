@@ -34,7 +34,7 @@ export class ProductComponent implements OnInit {
   }
   listProduct() {
 
-    this.webService.listItem('/api/product', (data: any) => {
+    this.webService.listItem('product', (data: any) => {
       if (data && data.Response.length) {
         this.productList = data.Response;
         data.Response = data.Response.map((v: any) => {
@@ -59,7 +59,7 @@ export class ProductComponent implements OnInit {
 
   }
   listProductCategory() {
-    this.webService.listItem('/api/products_category', (data: any) => {
+    this.webService.listItem('product_category', (data: any) => {
       this.productCategoryList = data.Response;
     });
   }
@@ -69,10 +69,11 @@ export class ProductComponent implements OnInit {
       id: 0,
       code: "",
       name: "",
-      category: "",
+      category_id: "",
       price: 0,
       description: "",
-      image: ""
+      image: "",
+      created_by:"Admin"
     }
     this.upload = 'none';
     this.showVisibility(true, false);
@@ -93,7 +94,7 @@ export class ProductComponent implements OnInit {
     // }
     // this.showVisibility(false, false);
     if (this.product.id == 0) {
-      this.webService.createItem('/api/product/create', this.product, (data: any) => {
+      this.webService.createItem('product', this.product, (data: any) => {
         if (data) {
           if (flag) {
             this.showCreate(false);
@@ -105,7 +106,7 @@ export class ProductComponent implements OnInit {
       });
     }
     else {
-      this.webService.updateItem('/api/product/' + this.product.id, this.product, (data: any) => {
+      this.webService.updateItem('product/' + this.product.id, this.product, (data: any) => {
         if (data) {
           this.toast.success("Product Updated Successfully..")
           this.listProduct();
@@ -125,7 +126,6 @@ export class ProductComponent implements OnInit {
     this.image_public_id = this.getPublicImageId(list.image);
     this.product.price = list.price;
     this.product.description = list.description;
-    console.log(this.product.image_public_id);
     if (this.product.image) {
       this.upload = 'completed';
     } else {
@@ -157,7 +157,7 @@ export class ProductComponent implements OnInit {
     this.visibility.productImageList = true;
     this.showVisibility(false, false);
     this.imageList = [];
-    this.webService.listItem('/api/product/image/' + elem, (data: any) => {
+    this.webService.listItem('product/ '+ elem+'/image', (data: any) => {
       if (data && data.Response.length) {
         console.log(data.Response);
 
@@ -165,8 +165,8 @@ export class ProductComponent implements OnInit {
           return {
             id:v.id,
             product_id:v.product_id,
-            image: v.image,
-            upload: v.image ? 'completed' : 'none'
+            image: v.image_url,
+            upload: v.image_url ? 'completed' : 'none'
           }
         });
         this.imageList.push({id:0,  product_id:elem,"image": "", "upload": "none" });
@@ -206,10 +206,12 @@ export class ProductComponent implements OnInit {
     )
   }
   removeImage() {
-    this.webService.deleteItem('/api/image/remove', [this.image_public_id], (data: any) => {
+    this.webService.deleteItem('upload', [this.image_public_id], (data: any) => {
       if (data) {
         this.toast.success("Image removed..");
         this.upload = 'none';
+        this.image_public_id = "";
+        this.product.image = "";
       }
     })
   }
@@ -223,15 +225,24 @@ export class ProductComponent implements OnInit {
     formData.append('image', file, file.name);
     elem.srcElement.value = null;
     this.webService.uploadToCloud(formData).subscribe((data: any) => {
-        console.log(this.imageList[index]);
+        
         if (data.Status == "Success") {
-          console.log(data.Response.url);
+        console.log(data)
           let reqJson = {
-            product_id:this.imageList[index].product_id,
-            image:data.Response.url,
-            image_type:""
+            "source_type" : "product",
+            "source_id" :this.imageList[index].product_id,
+            "cloud_id":data.Response.public_id,
+            "image_url":data.Response.url,
+            "secure_image_url":data.Response.secure_url,
+            "image_type":data.Response.resource_type+'/'+data.Response.format,
+            "image_name":data.Response.original_filename
           }
-          this.webService.createItem('/api/product/image', reqJson, (data1: any) => {
+          // {
+          //   product_id:this.imageList[index].product_id,
+          //   image:data.Response.url,
+          //   image_type:""
+          // }
+          this.webService.createItem('product/'+this.imageList[index].product_id+'/image', reqJson, (data1: any) => {
            
             this.imageList[this.imageList.length - 1].id = data1.Response;
             this.imageList[this.imageList.length - 1].upload = 'completed';
@@ -251,23 +262,27 @@ export class ProductComponent implements OnInit {
     )
   }
   removeProductImage(index: number) {
-    console.log(this.imageList[index].image);
-    let id = this.getPublicImageId(this.imageList[index].image);
-    this.webService.deleteItem('/api/image/remove', [id], (data: any) => {
-      console.log(id);
-      if (data) {
-        this.removeProductImageDB(index);
+    
+    let id = this.getPublicImageId(this.imageList[index].image) || this.imageList[index].image;
+    this.webService.deleteItem('upload', [id], (data: any) => {
+  
+      // if (data) {
+      //   //this.removeProductImageDB(index);
+      //   this.toast.success("Image removed..");
+      // this.imageList.splice(index, 1);
       
-      }else{
-      this.toast.success("Image removed failed..");
-      this.removeProductImageDB(index);
-      }
-    })
-  }
-  removeProductImageDB(index:number){
-    this.webService.deleteItem('/api/product/image/'+ [this.imageList[index].id], "",(data1: any) => {
+      // }else{
+      // this.toast.success("Image removed failed..");
+      // ///this.removeProductImageDB(index);
+      // }
       this.toast.success("Image removed..");
       this.imageList.splice(index, 1);
-    });
+    })
   }
+  // removeProductImageDB(index:number){
+  //   this.webService.deleteItem('/api/product/image/'+ [this.imageList[index].id], "",(data1: any) => {
+  //     this.toast.success("Image removed..");
+  //     this.imageList.splice(index, 1);
+  //   });
+  // }
 }
